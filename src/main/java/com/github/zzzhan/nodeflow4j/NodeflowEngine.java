@@ -114,10 +114,7 @@ public class NodeflowEngine {
 		output = list.get(1);
 		if (curNode == null || "".equals(curNode.trim())) {
 			JsonObject first = nodes.get(0).getAsJsonObject();
-			JsonObject jo = new JsonObject();
-			jo.addProperty(KEY_ID, "init");
-			jo.addProperty(KEY_NEXT, first.get(KEY_ID).getAsString());
-			next(jo, null, 0);
+			next(first, null, 0);
 		} else {
 			next(findNode(curNode, nodes), findNode(lastNode, nodes), 0);
 		}
@@ -221,14 +218,17 @@ public class NodeflowEngine {
 		}
 		JsonElement componentId = node.get(KEY_COMPONENT);
 		if (componentId != null) {
-			NfComponent cpt = findComponent(componentId.getAsString());
-			if (cpt != null) {
-				Type type = new TypeToken<Map<String, Object>>() {
-				}.getType();
-				Map<String, Object> nodemap = new Gson().fromJson(node, type);
-				cpt.execute(nodemap, ctx);
-			} else {
-				throw new RuntimeException("Component unfound:" + componentId);
+			String[] componentIds = componentId.getAsString().split(",");
+			for(String key:componentIds) {
+				NfComponent cpt = findComponent(key);
+				if (cpt != null) {
+					Type type = new TypeToken<Map<String, Object>>() {
+					}.getType();
+					Map<String, Object> nodemap = new Gson().fromJson(node, type);
+					cpt.execute(nodemap, ctx);
+				} else {
+					throw new RuntimeException("Component unfound:" + componentId);
+				}
 			}
 		}
 		JsonElement next = node.get(KEY_NEXT);
@@ -305,5 +305,9 @@ public class NodeflowEngine {
 
 	public void setFinished(boolean finished) {
 		this.finished = finished;
+	}
+	
+	public JsonObject findNodeById(String nodeId) {
+		return findNode(nodeId, nodes);
 	}
 }

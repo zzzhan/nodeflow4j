@@ -45,7 +45,8 @@ public class NodeflowEngineTest {
 			assertEquals("n3", nf.getCurNode());
 			Map<String, Object> output = nf.getOutput();
 			assertEquals(2048, output.get("bar"));
-			
+
+			params = new HashMap<String,Object>();			
 			params.put("foo", 2);
 			nf = new NodeflowEngine(nfJson);
 			long start = System.currentTimeMillis();
@@ -55,7 +56,8 @@ public class NodeflowEngineTest {
 			assertTrue(delay>=3000);
 			output = nf.getOutput();
 			assertEquals(2024, output.get("bar"));
-			
+
+			params = new HashMap<String,Object>();		
 			params.put("foo", 3);
 			nf = new NodeflowEngine(nfJson);
 			nf.execute(params);

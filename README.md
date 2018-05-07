@@ -1,18 +1,18 @@
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 NODEFLOW4J
 ============================
-> A light-weight,JSON-defined and compenent-orented workflow engine for JAVA.
+> A light-weight,JSON-defined and compenent-orented process engine for JAVA.
 
 ## Features
   
 * **JSON-Defined**
 
-  Different to most other workflow defined with XML, we defines with JSON representation.
+  Different to most other process engine defined with XML, `nodeflow` defines with JSON representation.
   
 * **Compenent-Orented**
 
-  This is a flexible and scalable way to build your bussiness flow.
   Including built-in compenents, you can custom your own compenents, and reuse its in different bussiness flow.
+  This is a flexible and scalable way to build your bussiness flow.
     
 * **Groovy Expression**
 
