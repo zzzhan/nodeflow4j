@@ -29,7 +29,7 @@ public class DelayComponent implements NfComponent {
 	/* (non-Javadoc)
 	 * @see com.github.zzzhan.nodeflow4j.NfComponent#execute(java.util.Map, java.util.Map)
 	 */
-	public void execute(Map<String, Object> node, Map<String, Object> ctx) {
+	public void execute(Map<String, Object> nf, Map<String, Object> node, Map<String, Object> ctx) {
         Object delay = node.get(KEY_DELAY);
         long timeout = 2000;
         if(delay!=null) {

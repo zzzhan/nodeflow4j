@@ -28,7 +28,7 @@ public class TestCustomComponent implements NfComponent {
 	/* (non-Javadoc)
 	 * @see com.github.zzzhan.nodeflow4j.NfComponent#execute(java.util.Map, java.util.Map)
 	 */
-	public void execute(Map<String, Object> node, Map<String, Object> ctx) {
+	public void execute(Map<String, Object> nf, Map<String, Object> node, Map<String, Object> ctx) {
 		int bar = (Integer)ctx.get("bar");
 		ctx.put("bar", bar*2);
 	}

@@ -29,7 +29,7 @@ public class RuleSetComponent implements NfComponent {
 	private static final String KEY_RULESET = "ruleset";
 	
 	@SuppressWarnings("unchecked")
-	public void execute(Map<String, Object> node, Map<String, Object> ctx) {
+	public void execute(Map<String, Object> nf, Map<String, Object> node, Map<String, Object> ctx) {
 		ArrayList<String> ruleset = (ArrayList<String>) node.get(KEY_RULESET);
 		StringBuffer buf = new StringBuffer();
 		for (int i = 0; i < ruleset.size(); i++) {

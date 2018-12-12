@@ -22,7 +22,7 @@ import java.util.Map;
  *
  */
 public interface NfComponent {
-	public void execute(Map<String, Object> node, Map<String, Object> ctx);
+	public void execute(Map<String, Object> nf, Map<String, Object> node, Map<String, Object> ctx);
 
 	public String spiId();
 }

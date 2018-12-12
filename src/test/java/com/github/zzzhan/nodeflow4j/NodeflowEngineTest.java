@@ -61,7 +61,7 @@ public class NodeflowEngineTest {
 			params.put("foo", 3);
 			nf = new NodeflowEngine(nfJson);
 			nf.execute(params);
-			assertEquals("n5", nf.getCurNode());
+			assertEquals("n7", nf.getCurNode());
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail(e.getMessage());

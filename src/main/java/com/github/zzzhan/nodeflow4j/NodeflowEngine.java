@@ -225,7 +225,8 @@ public class NodeflowEngine {
 					Type type = new TypeToken<Map<String, Object>>() {
 					}.getType();
 					Map<String, Object> nodemap = new Gson().fromJson(node, type);
-					cpt.execute(nodemap, ctx);
+					Map<String, Object> nfmap = new Gson().fromJson(nf, type);
+					cpt.execute(nfmap, nodemap, ctx);
 				} else {
 					throw new RuntimeException("Component unfound:" + componentId);
 				}
@@ -234,7 +235,7 @@ public class NodeflowEngine {
 		JsonElement next = node.get(KEY_NEXT);
 		String to = null;
 		if (next != null && next.isJsonPrimitive()) {
-			to = next.getAsString();
+			to = parseNext(next.getAsString());			
 			next(findNode(to, nodes), node, ++deep);
 		} else if (next != null && next.isJsonArray()) {
 			JsonArray nexts = next.getAsJsonArray();
@@ -244,7 +245,7 @@ public class NodeflowEngine {
 				String condition = null;
 				if (cond != null && !"".equals((condition = cond.getAsString()).trim())) {
 					if ((Boolean) ExprSupport.parseExpr(condition, ctx)) {
-						to = it.get(KEY_NEXT).getAsString();
+						to = parseNext(it.get(KEY_NEXT).getAsString());
 						next(findNode(to, nodes), node, ++deep);
 						break;
 					} else {
@@ -254,7 +255,7 @@ public class NodeflowEngine {
 						}
 					}
 				} else {
-					to = it.get(KEY_NEXT).getAsString();
+					to = parseNext(it.get(KEY_NEXT).getAsString());
 					next(findNode(to, nodes), node, ++deep);
 					break;
 				}
@@ -262,6 +263,15 @@ public class NodeflowEngine {
 		} else {
 			finished = true;
 		}
+	}
+	
+	private String parseNext(String next) {
+		if(next.indexOf("=") != -1||
+				next.indexOf(">") != -1||
+				next.indexOf("<") != -1) {
+			next = (String) ExprSupport.parseExpr(next, ctx);
+		}
+		return next;
 	}
 
 	private static JsonObject findNode(String id, JsonArray arr) {
