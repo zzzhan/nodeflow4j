@@ -207,7 +207,8 @@ public class NodeflowEngine {
 		boolean manual = false;
 		JsonElement item = node.get(KEY_MANUAL);
 		if (item != null) {
-			manual = item.getAsBoolean();
+			String action = item.getAsString();
+			manual = !"false".equalsIgnoreCase(action);
 		}
 		if (last != null) {
 			lastNode = last.get(KEY_ID).getAsString();
