@@ -55,6 +55,7 @@ public class NodeflowEngine {
 	private static final String KEY_TYPE_DOUBLE = "DOUBLE";
 	private static final String KEY_IDX = "idx";// index key
 	private static final String KEY_NAME = "name";// index name
+	private static final String KEY_VALUE = "value";// index name
 	private static final String KEY_MODE = "mode";// 1:input,2:output,3:input&output
 	private static final String KEY_REGX = "regx";
 	private static final String KEY_REGX_NAME = "regxName";
@@ -174,6 +175,9 @@ public class NodeflowEngine {
 			String type = getAsString(indexItem, KEY_TYPE, null);
 			String patternName = getAsString(indexItem, KEY_REGX_NAME, idxName);
 			Object val = ctx.get(idx);
+			if (val == null) {
+				val = getAsString(indexItem, KEY_VALUE, idx);
+			}
 			if (type != null) {
 				val = parseType(type, val);
 			}
